@@ -23,6 +23,10 @@ int eval(char *code){
             case '.':
             putchar(tape[ptr]);
             break;
+            case ',':
+            tape[ptr] = getchar();
+
+            default: continue;
             
 
         
@@ -34,5 +38,5 @@ int eval(char *code){
 
 int main (void){
     //Test code!!!!
-    eval(">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.>+++++++++++.<.>.");
+    eval(">,.");
 }
