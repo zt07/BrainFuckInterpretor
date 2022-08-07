@@ -2,7 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-int eval(char *code){
+int error(void){
+    perror("Unbalanced Braces\n");
+    return 1;
+}
+
+int interpret(char *code){
     //Goes thorugh array manipulating digits. As dsetermined through the program.
     int ptr = 0;                   
     char tape[30000] = {0}; //Initialize a Array or tape with 30,000 elements with the value of 0 in each index.
@@ -21,12 +26,49 @@ int eval(char *code){
                 tape[ptr]--;
                 break;
             case '.':
-            putchar(tape[ptr]);
-            break;
+                putchar(tape[ptr]);
+                break;
             case ',':
-            tape[ptr] = getchar();
+                tape[ptr] = getchar();
+                break;
+            case ']':
+                error();
+                break;
+            case '[':
+                //If a loop is found, it will go through the loop until the loop is finished.
+                while (tape[ptr]){
+                    int j = 1;
+                    while (j){
+                        i++;
+                        switch (code[i]){
+                            case '[':
+                                j++;
+                                break;
+                            case ']':
+                                j--;
+                                break;
+                        }
+                    }
 
-            default: continue;
+
+             
+                
+
+
+                
+
+
+                }
+                default: continue;
+                //Roll back to 0 or 255 if the value is greater than 255 or less than 0.
+                /*
+                if (tape[ptr] > 255){
+                    tape[ptr] = 0;
+                }
+                else if (tape[ptr] < 0){
+                    tape[ptr] = 255;
+                }
+                */
             
 
         
@@ -38,5 +80,7 @@ int eval(char *code){
 
 int main (void){
     //Test code!!!!
-    eval(">,.");
+
+    interpret("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.");
+
 }
